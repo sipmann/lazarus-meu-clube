@@ -1,0 +1,52 @@
+object frmSobre: TfrmSobre
+  Left = 409
+  Height = 335
+  Top = 208
+  Width = 558
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Sobre'
+  ClientHeight = 335
+  ClientWidth = 558
+  Position = poDesktopCenter
+  LCLVersion = '3.0.0.3'
+  object Image1: TImage
+    Left = 16
+    Height = 128
+    Top = 40
+    Width = 128
+  end
+  object Label1: TLabel
+    Left = 160
+    Height = 28
+    Top = 8
+    Width = 54
+    Caption = 'Sobre'
+    Font.Height = -20
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Memo1: TMemo
+    Left = 160
+    Height = 282
+    Top = 40
+    Width = 384
+    Lines.Strings = (
+      'Desenvolvido por: Maurício Sipmann'
+      ''
+      'Para verificar novas versões, favor acessar o site abaixo.'
+      ''
+      'https://github.com/sipmann/meu-clube'
+    )
+    TabOrder = 0
+  end
+  object Label2: TLabel
+    Left = 16
+    Height = 15
+    Top = 16
+    Width = 131
+    Caption = 'Que me pagar um café?'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+end

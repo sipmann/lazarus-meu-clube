@@ -1,0 +1,129 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 386
+  Height = 545
+  Top = 230
+  Width = 1012
+  Caption = 'Meu Clube'
+  ClientHeight = 545
+  ClientWidth = 1012
+  Menu = MM
+  OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '3.0.0.3'
+  WindowState = wsMaximized
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 522
+    Width = 1012
+    Panels = <    
+      item
+        Text = 'Versão 1.0'
+        Width = 150
+      end>
+    SimplePanel = False
+  end
+  object calendarioContas: TCalendar
+    Left = 16
+    Height = 160
+    Top = 16
+    Width = 225
+    DateTime = 45335
+    TabOrder = 1
+  end
+  object GroupBox1: TGroupBox
+    Left = 264
+    Height = 105
+    Top = 16
+    Width = 185
+    Caption = 'Mensalidades em atraso'
+    TabOrder = 2
+  end
+  object GroupBox2: TGroupBox
+    Left = 264
+    Height = 161
+    Top = 152
+    Width = 497
+    Caption = 'Contas a Pagar'
+    ClientHeight = 141
+    ClientWidth = 493
+    TabOrder = 3
+    object DBGrid1: TDBGrid
+      Left = 0
+      Height = 136
+      Top = 0
+      Width = 488
+      Color = clWindow
+      Columns = <      
+        item
+          Title.Caption = 'Descrição'
+          Width = 120
+          FieldName = 'DESCRICAO'
+        end      
+        item
+          Title.Caption = 'Vencimento'
+          Width = 120
+          FieldName = 'VENCIMENTO'
+        end      
+        item
+          Title.Caption = 'Valor'
+          Width = 90
+          FieldName = 'VALOR'
+          DisplayFormat = 'R$ #0.00'
+        end>
+      DataSource = DSContasAPagar
+      TabOrder = 0
+    end
+  end
+  object MM: TMainMenu
+    Left = 664
+    Top = 344
+    object mnArquivo: TMenuItem
+      Caption = '&Arquivo'
+      object mnUpdate: TMenuItem
+        Caption = 'Rodar atualização'
+        OnClick = mnUpdateClick
+      end
+      object MISair: TMenuItem
+        Caption = '&Sair'
+        ShortCut = 32883
+        OnClick = MISairClick
+      end
+    end
+    object MICadastro: TMenuItem
+      Caption = '&Cadastro'
+      object MNMembro: TMenuItem
+        Caption = '&Membros'
+        OnClick = MNMembroClick
+      end
+      object MIContaBancaria: TMenuItem
+        Caption = 'Conta Bancaria'
+        OnClick = MIContaBancariaClick
+      end
+      object MIContaContabil: TMenuItem
+        Caption = 'Conta Contábil'
+        OnClick = MIContaContabilClick
+      end
+    end
+    object MenuItem1: TMenuItem
+      Caption = 'Lançamentos'
+      object miContasAPagar: TMenuItem
+        Caption = 'Contas a Pagar'
+        OnClick = miContasAPagarClick
+      end
+    end
+    object MIMensalidades: TMenuItem
+      Caption = 'Mensalidades'
+      OnClick = MIMensalidadesClick
+    end
+    object MISobre: TMenuItem
+      Caption = 'Sobre'
+      OnClick = MISobreClick
+    end
+  end
+  object DSContasAPagar: TDataSource
+    Left = 272
+    Top = 328
+  end
+end

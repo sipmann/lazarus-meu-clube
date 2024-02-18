@@ -1,0 +1,92 @@
+inherited frmContaBancaria: TfrmContaBancaria
+  Left = 312
+  Height = 545
+  Top = 228
+  Caption = 'Conta Bancaria'
+  ClientHeight = 545
+  OnCreate = FormCreate
+  inherited DBGrid1: TDBGrid
+    Height = 228
+    Top = 317
+    Columns = <    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'id'
+        FieldName = 'id'
+      end    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'nome'
+        Width = 250
+        FieldName = 'nome'
+      end    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'saldo'
+        Width = 100
+        FieldName = 'saldo'
+      end>
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+  end
+  inherited Panel1: TPanel
+    inherited btnInserir: TButton
+      OnClick = btnInserirClick
+    end
+    inherited btnEditar: TButton
+      TabOrder = 4
+      OnClick = btnEditarClick
+    end
+    inherited btnCancelar: TButton
+      TabOrder = 2
+    end
+  end
+  inherited StatusBar1: TStatusBar
+    Top = 522
+  end
+  inherited PageControl1: TPageControl
+    Height = 272
+    ActivePage = TabSheet1
+    TabIndex = 0
+    inherited TabSheet1: TTabSheet
+      ClientHeight = 244
+      ClientWidth = 765
+      object DBEdit1: TDBEdit[0]
+        Left = 8
+        Height = 23
+        Top = 38
+        Width = 192
+        DataField = 'NOME'
+        DataSource = DS
+        MaxLength = 0
+        TabOrder = 0
+      end
+      object Label1: TLabel[1]
+        Left = 8
+        Height = 15
+        Top = 16
+        Width = 33
+        Caption = 'Nome'
+      end
+      object DBEdit2: TDBEdit[2]
+        Left = 248
+        Height = 23
+        Top = 38
+        Width = 88
+        DataField = 'SALDO'
+        DataSource = DS
+        MaxLength = 0
+        TabOrder = 1
+      end
+      object Label2: TLabel[3]
+        Left = 248
+        Height = 15
+        Top = 16
+        Width = 29
+        Caption = 'Saldo'
+      end
+    end
+  end
+  inherited DS: TDataSource
+    DataSet = DataModule1.queContaBancaria
+  end
+end

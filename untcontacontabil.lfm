@@ -1,0 +1,53 @@
+inherited frmContaContabil: TfrmContaContabil
+  Left = 349
+  Top = 302
+  Caption = 'Conta Contábil'
+  inherited DBGrid1: TDBGrid
+    Columns = <    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'ID'
+        FieldName = 'ID'
+      end    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'Nome'
+        Width = 200
+        FieldName = 'NOME'
+      end>
+  end
+  inherited Panel1: TPanel
+    inherited btnInserir: TButton
+      OnClick = btnInserirClick
+    end
+    inherited btnEditar: TButton
+      OnClick = btnEditarClick
+    end
+  end
+  inherited PageControl1: TPageControl
+    ActivePage = TabSheet1
+    TabIndex = 0
+    inherited TabSheet1: TTabSheet
+      object DBEdit1: TDBEdit[0]
+        Left = 16
+        Height = 23
+        Top = 32
+        Width = 192
+        DataField = 'NOME'
+        DataSource = DS
+        MaxLength = 0
+        TabOrder = 0
+      end
+      object Label1: TLabel[1]
+        Left = 16
+        Height = 15
+        Top = 11
+        Width = 33
+        Caption = 'Nome'
+      end
+    end
+  end
+  inherited DS: TDataSource
+    DataSet = DataModule1.queContaContabil
+  end
+end

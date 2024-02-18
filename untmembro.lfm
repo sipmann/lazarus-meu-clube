@@ -1,0 +1,100 @@
+inherited frmMembro: TfrmMembro
+  Left = 445
+  Top = 389
+  Caption = 'Membros'
+  inherited DBGrid1: TDBGrid
+    Columns = <    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'id'
+        FieldName = 'id'
+      end    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'nome'
+        Width = 150
+        FieldName = 'nome'
+      end    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'whatsapp'
+        Width = 120
+        FieldName = 'whatsapp'
+      end    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'ativo'
+        FieldName = 'ativo'
+      end>
+  end
+  inherited Panel1: TPanel
+    inherited btnInserir: TButton
+      OnClick = btnInserirClick
+    end
+  end
+  inherited PageControl1: TPageControl
+    ActivePage = TabSheet1
+    TabIndex = 0
+    inherited TabSheet1: TTabSheet
+      ClientHeight = 195
+      ClientWidth = 765
+      object DBEdit1: TDBEdit[0]
+        Left = 8
+        Height = 23
+        Top = 24
+        Width = 240
+        DataField = 'NOME'
+        DataSource = DS
+        MaxLength = 0
+        TabOrder = 0
+      end
+      object Label1: TLabel[1]
+        Left = 8
+        Height = 15
+        Top = 8
+        Width = 33
+        Caption = 'Nome'
+      end
+      object Label2: TLabel[2]
+        Left = 272
+        Height = 15
+        Top = 8
+        Width = 53
+        Caption = 'Whatsapp'
+      end
+      object DBEdit2: TDBEdit[3]
+        Left = 272
+        Height = 23
+        Top = 24
+        Width = 136
+        DataField = 'WHATSAPP'
+        DataSource = DS
+        MaxLength = 0
+        TabOrder = 1
+      end
+      object Label3: TLabel[4]
+        Left = 448
+        Height = 15
+        Top = 8
+        Width = 28
+        Caption = 'Ativo'
+      end
+      object DBCheckBox1: TDBCheckBox[5]
+        Left = 448
+        Height = 23
+        Top = 24
+        Width = 90
+        DataField = 'ATIVO'
+        DataSource = DS
+        TabOrder = 2
+        ValueChecked = '1'
+        ValueUnchecked = '0'
+      end
+    end
+  end
+  inherited DS: TDataSource
+    DataSet = DataModule1.queMembro
+    Left = 480
+    Top = 144
+  end
+end

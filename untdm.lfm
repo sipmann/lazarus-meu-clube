@@ -1,0 +1,382 @@
+object DataModule1: TDataModule1
+  OnCreate = DataModuleCreate
+  OldCreateOrder = False
+  Height = 379
+  HorizontalOffset = 344
+  VerticalOffset = 479
+  Width = 589
+  object SQLConn: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    DatabaseName = 'F:\projetos\opensource\Lazarus-Meu-Clube\rotary.db'
+    KeepConnection = False
+    AlwaysUseBigint = False
+    Left = 56
+    Top = 24
+  end
+  object trGeral: TSQLTransaction
+    Active = True
+    Database = FBConn
+    Left = 352
+    Top = 152
+  end
+  object queContaBancaria: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'NOME'
+        DataType = ftString
+        Precision = -1
+        Size = 50
+      end    
+      item
+        Name = 'SALDO'
+        DataType = ftLargeint
+        Precision = -1
+      end>
+    AfterDelete = queContaBancariaAfterDelete
+    AfterPost = queContaBancariaAfterPost
+    Database = FBConn
+    Transaction = trGeral
+    SQL.Strings = (
+      'SELECT * FROM CONTABANCARIA'
+    )
+    Params = <>
+    Macros = <>
+    Left = 122
+    Top = 231
+    object queContaBancariaID: TLongintField
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object queContaBancariaNOME: TStringField
+      FieldKind = fkData
+      FieldName = 'NOME'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 50
+    end
+    object queContaBancariaSALDO: TLargeintField
+      FieldKind = fkData
+      FieldName = 'SALDO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object queMembro: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'NOME'
+        DataType = ftString
+        Precision = -1
+        Size = 100
+      end    
+      item
+        Name = 'ATIVO'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'WHATSAPP'
+        DataType = ftString
+        Precision = -1
+        Size = 20
+      end>
+    AfterDelete = queContaBancariaAfterDelete
+    AfterPost = queContaBancariaAfterPost
+    Database = FBConn
+    Transaction = trGeral
+    SQL.Strings = (
+      'SELECT * FROM MEMBRO'
+    )
+    Params = <>
+    Macros = <>
+    Left = 122
+    Top = 152
+    object queMembroID: TLongintField
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object queMembroNOME: TStringField
+      FieldKind = fkData
+      FieldName = 'NOME'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object queMembroATIVO: TLongintField
+      FieldKind = fkData
+      FieldName = 'ATIVO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object queMembroWHATSAPP: TStringField
+      FieldKind = fkData
+      FieldName = 'WHATSAPP'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      EditMask = '(99) 99999-9999'
+    end
+  end
+  object FBConn: TIBConnection
+    Connected = True
+    LoginPrompt = False
+    DatabaseName = 'F:\projetos\opensource\Lazarus-Meu-Clube\RODATY.FDB'
+    KeepConnection = False
+    Transaction = trGeral
+    UserName = 'SYSDBA'
+    CharSet = 'UTF8'
+    CheckTransactionParams = False
+    UseConnectionCharSetIfNone = False
+    Left = 313
+    Top = 35
+  end
+  object queContaContabil: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'NOME'
+        DataType = ftString
+        Precision = -1
+        Size = 100
+      end>
+    AfterDelete = queContaBancariaAfterDelete
+    AfterPost = queContaBancariaAfterPost
+    Database = FBConn
+    Transaction = trGeral
+    SQL.Strings = (
+      'SELECT * FROM CONTACONTABIL;'
+    )
+    Params = <>
+    Macros = <>
+    Left = 122
+    Top = 304
+    object queContaContabilID: TLongintField
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object queContaContabilNOME: TStringField
+      FieldKind = fkData
+      FieldName = 'NOME'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+  end
+  object queMensalidade: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'MEMBRO_ID'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'ANOMES'
+        DataType = ftString
+        Precision = -1
+        Size = 6
+      end    
+      item
+        Name = 'PAGO'
+        DataType = ftInteger
+        Precision = -1
+      end>
+    Database = FBConn
+    Transaction = trGeral
+    SQL.Strings = (
+      'SELECT * FROM MENSALIDADE;'
+    )
+    Params = <>
+    Macros = <>
+    Left = 240
+    Top = 152
+    object queMensalidadeID: TLongintField
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object queMensalidadeMEMBRO_ID: TLongintField
+      FieldKind = fkData
+      FieldName = 'MEMBRO_ID'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object queMensalidadeANOMES: TStringField
+      FieldKind = fkData
+      FieldName = 'ANOMES'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 6
+    end
+    object queMensalidadePAGO: TLongintField
+      FieldKind = fkData
+      FieldName = 'PAGO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object queApagar: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'DESCRICAO'
+        DataType = ftString
+        Precision = -1
+        Size = 100
+      end    
+      item
+        Name = 'VENCIMENTO'
+        DataType = ftDate
+        Precision = -1
+      end    
+      item
+        Name = 'PAGO'
+        DataType = ftDate
+        Precision = -1
+      end    
+      item
+        Name = 'VALOR'
+        DataType = ftLargeint
+        Precision = -1
+      end    
+      item
+        Name = 'RECORRENTE_ID'
+        DataType = ftInteger
+        Precision = -1
+      end>
+    AfterDelete = queContaBancariaAfterDelete
+    AfterPost = queContaBancariaAfterPost
+    Database = FBConn
+    Transaction = trGeral
+    SQL.Strings = (
+      'SELECT * FROM APAGAR;'
+    )
+    Params = <>
+    Macros = <>
+    Left = 240
+    Top = 231
+    object queApagarID: TLongintField
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object queApagarDESCRICAO: TStringField
+      FieldKind = fkData
+      FieldName = 'DESCRICAO'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object queApagarVENCIMENTO: TDateField
+      FieldKind = fkData
+      FieldName = 'VENCIMENTO'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object queApagarPAGO: TDateField
+      FieldKind = fkData
+      FieldName = 'PAGO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object queApagarVALOR: TLargeintField
+      FieldKind = fkData
+      FieldName = 'VALOR'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object queApagarRECORRENTE_ID: TLongintField
+      FieldKind = fkData
+      FieldName = 'RECORRENTE_ID'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+end

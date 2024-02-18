@@ -1,0 +1,51 @@
+inherited frmMensalidades: TfrmMensalidades
+  Left = 327
+  Height = 425
+  Top = 309
+  Width = 682
+  Caption = 'Mensalidades'
+  ClientHeight = 425
+  ClientWidth = 682
+  inherited DBGrid1: TDBGrid
+    Top = 193
+    Width = 684
+  end
+  inherited Panel1: TPanel
+    Width = 682
+    ClientWidth = 682
+  end
+  inherited StatusBar1: TStatusBar
+    Top = 402
+    Width = 682
+  end
+  inherited PageControl1: TPageControl
+    Height = 142
+    Width = 684
+    ActivePage = TabSheet1
+    TabIndex = 0
+    inherited TabSheet1: TTabSheet
+      ClientHeight = 114
+      ClientWidth = 676
+      object DBEdit1: TDBEdit[0]
+        Left = 8
+        Height = 23
+        Top = 32
+        Width = 80
+        DataField = 'ANOMES'
+        DataSource = DS
+        MaxLength = 0
+        TabOrder = 0
+      end
+      object Label1: TLabel[1]
+        Left = 8
+        Height = 15
+        Top = 12
+        Width = 49
+        Caption = 'Ano/Mes'
+      end
+    end
+  end
+  inherited DS: TDataSource
+    DataSet = DataModule1.queMensalidade
+  end
+end

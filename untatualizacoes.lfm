@@ -1,0 +1,26 @@
+object frmAtualizacoes: TfrmAtualizacoes
+  Left = 463
+  Height = 436
+  Top = 468
+  Width = 633
+  Caption = 'Rodar Atualizações'
+  ClientHeight = 436
+  ClientWidth = 633
+  LCLVersion = '3.0.0.3'
+  object btnRun: TButton
+    Left = 504
+    Height = 25
+    Top = 8
+    Width = 115
+    Caption = 'Rodar Comandos'
+    TabOrder = 0
+    OnClick = btnRunClick
+  end
+  object mnSQL: TMemo
+    Left = 16
+    Height = 370
+    Top = 48
+    Width = 601
+    TabOrder = 1
+  end
+end
