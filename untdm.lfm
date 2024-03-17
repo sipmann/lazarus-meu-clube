@@ -2,8 +2,8 @@ object DataModule1: TDataModule1
   OnCreate = DataModuleCreate
   OldCreateOrder = False
   Height = 379
-  HorizontalOffset = 344
-  VerticalOffset = 479
+  HorizontalOffset = 1281
+  VerticalOffset = 312
   Width = 589
   object SQLConn: TSQLite3Connection
     Connected = False
@@ -304,8 +304,9 @@ object DataModule1: TDataModule1
       end    
       item
         Name = 'VALOR'
-        DataType = ftLargeint
-        Precision = -1
+        DataType = ftBCD
+        Precision = 9
+        Size = 2
       end    
       item
         Name = 'RECORRENTE_ID'
@@ -360,7 +361,111 @@ object DataModule1: TDataModule1
       ReadOnly = False
       Required = False
     end
-    object queApagarVALOR: TLargeintField
+    object queApagarRECORRENTE_ID: TLongintField
+      FieldKind = fkData
+      FieldName = 'RECORRENTE_ID'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object queApagarVALOR: TBCDField
+      FieldKind = fkData
+      FieldName = 'VALOR'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#,0.00'
+      Precision = 9
+      Currency = True
+      MaxValue = 0
+      MinValue = 0
+      Size = 2
+    end
+  end
+  object queRecorrente: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'TIPO'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'RECORRENCIA'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'TITULO'
+        DataType = ftString
+        Precision = -1
+        Size = 30
+      end    
+      item
+        Name = 'VALOR'
+        DataType = ftLargeint
+        Precision = -1
+      end    
+      item
+        Name = 'ULTIMA_GERADA'
+        DataType = ftDate
+        Precision = -1
+      end>
+    Database = FBConn
+    Transaction = trGeral
+    SQL.Strings = (
+      'SELECT * FROM RECORRENTE;'
+    )
+    Params = <>
+    Macros = <>
+    Left = 240
+    Top = 304
+    object queRecorrenteID: TLongintField
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object queRecorrenteTIPO: TLongintField
+      FieldKind = fkData
+      FieldName = 'TIPO'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object queRecorrenteRECORRENCIA: TLongintField
+      FieldKind = fkData
+      FieldName = 'RECORRENCIA'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object queRecorrenteTITULO: TStringField
+      FieldKind = fkData
+      FieldName = 'TITULO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 30
+    end
+    object queRecorrenteVALOR: TLargeintField
       FieldKind = fkData
       FieldName = 'VALOR'
       Index = 4
@@ -369,14 +474,110 @@ object DataModule1: TDataModule1
       ReadOnly = False
       Required = False
     end
-    object queApagarRECORRENTE_ID: TLongintField
+    object queRecorrenteULTIMA_GERADA: TDateField
       FieldKind = fkData
-      FieldName = 'RECORRENTE_ID'
+      FieldName = 'ULTIMA_GERADA'
       Index = 5
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+    end
+  end
+  object queSistema: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'VERSAO'
+        DataType = ftString
+        Precision = -1
+        Size = 10
+      end    
+      item
+        Name = 'ANO_MES_ULTIMA_MENSALIDADE'
+        DataType = ftString
+        Precision = -1
+        Size = 6
+      end    
+      item
+        Name = 'ANO_MES_ULTIMA_RECORRENCIA'
+        DataType = ftString
+        Precision = -1
+        Size = 6
+      end    
+      item
+        Name = 'VALOR_MENSALIDADE'
+        DataType = ftBCD
+        Precision = 9
+        Size = 2
+      end>
+    AfterPost = queContaBancariaAfterPost
+    Database = FBConn
+    Transaction = trGeral
+    SQL.Strings = (
+      'SELECT * FROM SISTEMA;'
+    )
+    Params = <>
+    Macros = <>
+    Left = 163
+    Top = 46
+    object queSistemaID: TLongintField
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = True
+    end
+    object queSistemaVERSAO: TStringField
+      FieldKind = fkData
+      FieldName = 'VERSAO'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 10
+    end
+    object queSistemaANO_MES_ULTIMA_MENSALIDADE: TStringField
+      FieldKind = fkData
+      FieldName = 'ANO_MES_ULTIMA_MENSALIDADE'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 6
+    end
+    object queSistemaANO_MES_ULTIMA_RECORRENCIA: TStringField
+      FieldKind = fkData
+      FieldName = 'ANO_MES_ULTIMA_RECORRENCIA'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 6
+    end
+    object queSistemaVALOR_MENSALIDADE: TBCDField
+      FieldKind = fkData
+      FieldName = 'VALOR_MENSALIDADE'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      DisplayFormat = '#,0.00'
+      Precision = 9
+      Currency = True
+      MaxValue = 0
+      MinValue = 0
+      Size = 2
     end
   end
 end

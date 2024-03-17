@@ -1,8 +1,9 @@
 inherited frmApagar: TfrmApagar
-  Left = 632
-  Top = 206
+  Left = 2567
+  Top = 211
   Caption = 'Contas a Pagar'
   OnShow = FormShow
+  Position = poDesktopCenter
   inherited DBGrid1: TDBGrid
     Columns = <    
       item
@@ -45,6 +46,7 @@ inherited frmApagar: TfrmApagar
     end
     inherited btnSalvar: TButton
       TabOrder = 3
+      OnClick = btnSalvarClick
     end
     inherited btnEditar: TButton
       TabOrder = 1
@@ -75,7 +77,8 @@ inherited frmApagar: TfrmApagar
         Width = 80
         DataField = 'VALOR'
         DataSource = DS
-        MaxLength = 0
+        EditMask = '#,0.00'
+        MaxLength = 6
         TabOrder = 1
       end
       object Label1: TLabel[1]
@@ -162,9 +165,42 @@ inherited frmApagar: TfrmApagar
         Width = 88
         Caption = 'Data Pagamento'
       end
+      object GroupBox1: TGroupBox[8]
+        Left = 8
+        Height = 89
+        Top = 72
+        Width = 312
+        Caption = 'Recorrência'
+        ClientHeight = 69
+        ClientWidth = 308
+        TabOrder = 4
+        object cbTipoRecorrencia: TComboBox
+          Left = 8
+          Height = 23
+          Top = 24
+          Width = 120
+          ItemHeight = 15
+          Items.Strings = (
+            'Mensal'
+            'Semestral'
+            'Anual'
+          )
+          TabOrder = 0
+          Text = 'Sem Recorrência'
+        end
+        object Label5: TLabel
+          Left = 8
+          Height = 15
+          Top = 0
+          Width = 23
+          Caption = 'Tipo'
+        end
+      end
     end
   end
   inherited DS: TDataSource
     DataSet = DataModule1.queApagar
+    OnDataChange = DSDataChange
+    Left = 608
   end
 end

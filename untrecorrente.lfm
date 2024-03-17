@@ -1,0 +1,43 @@
+inherited frmBase1: TfrmBase1
+  Caption = 'Contas Recorrentes'
+  inherited DBGrid1: TDBGrid
+    Columns = <    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'ID'
+        FieldName = 'ID'
+      end    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'TIPO'
+        FieldName = 'TIPO'
+      end    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'RECORRENCIA'
+        FieldName = 'RECORRENCIA'
+      end    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'TITULO'
+        FieldName = 'TITULO'
+      end    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'VALOR'
+        FieldName = 'VALOR'
+      end    
+      item
+        PickList.Strings = (        )
+        Title.Caption = 'ULTIMA_GERADA'
+        FieldName = 'ULTIMA_GERADA'
+      end>
+  end
+  inherited PageControl1: TPageControl
+    ActivePage = TabSheet1
+    TabIndex = 0
+  end
+  inherited DS: TDataSource
+    DataSet = DataModule1.queRecorrente
+  end
+end

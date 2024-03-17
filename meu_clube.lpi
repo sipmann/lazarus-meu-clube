@@ -137,6 +137,26 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="untApagar"/>
       </Unit>
+      <Unit>
+        <Filename Value="untrecorrente.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmBase1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="untRecorrente"/>
+      </Unit>
+      <Unit>
+        <Filename Value="clsrecorrencia.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="clsRecorrencia"/>
+      </Unit>
+      <Unit>
+        <Filename Value="untconfiguracoes.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmConfig"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="untConfiguracoes"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

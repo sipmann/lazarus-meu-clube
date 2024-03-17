@@ -1,5 +1,5 @@
 object frmPrincipal: TfrmPrincipal
-  Left = 386
+  Left = 2306
   Height = 545
   Top = 230
   Width = 1012
@@ -81,6 +81,10 @@ object frmPrincipal: TfrmPrincipal
     Top = 344
     object mnArquivo: TMenuItem
       Caption = '&Arquivo'
+      object mnConfiguracoes: TMenuItem
+        Caption = '&Configurações'
+        OnClick = mnConfiguracoesClick
+      end
       object mnUpdate: TMenuItem
         Caption = 'Rodar atualização'
         OnClick = mnUpdateClick
@@ -107,7 +111,7 @@ object frmPrincipal: TfrmPrincipal
       end
     end
     object MenuItem1: TMenuItem
-      Caption = 'Lançamentos'
+      Caption = '&Lançamentos'
       object miContasAPagar: TMenuItem
         Caption = 'Contas a Pagar'
         OnClick = miContasAPagarClick

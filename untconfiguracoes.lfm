@@ -1,0 +1,44 @@
+object frmConfig: TfrmConfig
+  Left = 501
+  Height = 221
+  Top = 100
+  Width = 506
+  BorderStyle = bsDialog
+  Caption = 'Configurações'
+  ClientHeight = 221
+  ClientWidth = 506
+  OnCreate = FormCreate
+  Position = poDesktopCenter
+  LCLVersion = '3.0.0.3'
+  object Label1: TLabel
+    Left = 16
+    Height = 15
+    Top = 16
+    Width = 112
+    Caption = 'Valor da Mensalidade'
+  end
+  object DBEdit1: TDBEdit
+    Left = 16
+    Height = 23
+    Top = 32
+    Width = 80
+    DataField = 'VALOR_MENSALIDADE'
+    DataSource = DSConfig
+    MaxLength = 0
+    TabOrder = 0
+  end
+  object btnSalvar: TButton
+    Left = 400
+    Height = 51
+    Top = 160
+    Width = 93
+    Caption = 'Salvar'
+    TabOrder = 1
+    OnClick = btnSalvarClick
+  end
+  object DSConfig: TDataSource
+    DataSet = DataModule1.queSistema
+    Left = 424
+    Top = 88
+  end
+end

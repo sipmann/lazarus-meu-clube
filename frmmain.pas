@@ -7,8 +7,8 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, ExtCtrls,
   ComCtrls, Calendar, StdCtrls, DBCtrls, DBGrids, IniPropStorage,
-  untContaBancaria, untAtualizacoes, untMembro, untAutoUpdate, untDM,
-  untContaContabil, untMensalidades, untSobre, untAPagar, DB, SQLDB;
+  untContaBancaria, untAtualizacoes, untMembro, untDM,
+  untContaContabil, untMensalidades, untSobre, untAPagar, DB, SQLDB, untConfiguracoes;
 
 type
 
@@ -21,6 +21,7 @@ type
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
     MenuItem1: TMenuItem;
+    mnConfiguracoes: TMenuItem;
     miContasAPagar: TMenuItem;
     MISobre: TMenuItem;
     MIMensalidades: TMenuItem;
@@ -41,6 +42,7 @@ type
     procedure MIMensalidadesClick(Sender: TObject);
     procedure MISairClick(Sender: TObject);
     procedure MISobreClick(Sender: TObject);
+    procedure mnConfiguracoesClick(Sender: TObject);
     procedure MNMembroClick(Sender: TObject);
     procedure mnUpdateClick(Sender: TObject);
   private
@@ -69,6 +71,11 @@ begin
   frmSobre.ShowModal;
 end;
 
+procedure TfrmPrincipal.mnConfiguracoesClick(Sender: TObject);
+begin
+  frmConfig.ShowModal;
+end;
+
 procedure TfrmPrincipal.MNMembroClick(Sender: TObject);
 begin
   frmMembro.ShowModal;
@@ -89,12 +96,7 @@ begin
 end;
 
 procedure TfrmPrincipal.FormShow(Sender: TObject);
-var
-  autoUpd: tuntAutoUpdate;
 begin
-  autoUpd := tuntAutoUpdate.Create;
-  autoUpd.ensureDb();
-  autoUpd.updateVersion();
   DataModule1.FBConn.Connected:= true;
 
   calendarioContas.DateTime:= now;

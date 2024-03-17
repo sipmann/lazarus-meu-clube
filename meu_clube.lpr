@@ -12,11 +12,16 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, datetimectrls, frmMain, untDM, untFrmBase, untContaBancaria, untJobs,
   untAtualizacoes, untMembro, untAutoUpdate, untContaContabil, untMensalidades,
-  untSobre, untApagar;
+  untSobre, untApagar, untRecorrente, clsRecorrencia, untConfiguracoes;
 
 {$R *.res}
-
+var
+  autoUpd: tuntAutoUpdate;
 begin
+  autoUpd := tuntAutoUpdate.Create;
+  autoUpd.ensureDb();
+  autoUpd.updateVersion();
+
   RequireDerivedFormResource:=True;
   Application.Title:='Meu Clube';
   Application.Scaled:=True;
@@ -31,6 +36,8 @@ begin
   Application.CreateForm(TfrmMensalidades, frmMensalidades);
   Application.CreateForm(TfrmSobre, frmSobre);
   Application.CreateForm(TfrmApagar, frmApagar);
+  Application.CreateForm(TfrmBase1, frmBase1);
+  Application.CreateForm(TfrmConfig, frmConfig);
   Application.Run;
   end.
 

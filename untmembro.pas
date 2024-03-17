@@ -39,6 +39,7 @@ procedure TfrmMembro.btnInserirClick(Sender: TObject);
 begin
   inherited;
   DBEdit1.SetFocus;
+  DBCheckBox1.Checked:=true;
 end;
 
 end.

@@ -22,18 +22,20 @@ uses
         procedure loadVersion();
         procedure updVersion(version: int32);
         procedure autoInc(name: string);
+
+        procedure runQuery(sql: String);
+        function runIntScalar(sql: String): Int32;
     end;
 
 var
   version: int32;
+  Fire: TIBConnection;
 
 implementation
 
 { tuntAutoUpdate }
 
 procedure tuntAutoUpdate.ensureDb();
-var
-  Fire: TIBConnection;
 begin
   //Connection to Firebird database
     // The next line is needed for quite old FPC versions
@@ -62,7 +64,7 @@ begin
           // Create the database as it doesn't exist
           try
             Fire.CreateDB; //Create the database file.
-            DataModule1.runQuery('CREATE TABLE SISTEMA (id INTEGER PRIMARY KEY, '+
+            runQuery('CREATE TABLE SISTEMA (id INTEGER PRIMARY KEY, '+
                      'versao VARCHAR(10), ano_mes_ultima_mensalidade VARCHAR(6));');
           except
             on E: Exception do
@@ -74,16 +76,16 @@ begin
               writeln(E.ClassName+'/'+E.Message);
             end;
           end;
-          Fire.Close;
+          //Fire.Close;
       end;
     finally
-      Fire.Free;
+//      Fire.Free;
     end;
 end;
 
 procedure tuntAutoUpdate.updateVersion();
 begin
-  DataModule1.runQuery('INSERT INTO SISTEMA (id, versao, ano_mes_ultima_mensalidade) '+
+  runQuery('INSERT INTO SISTEMA (id, versao, ano_mes_ultima_mensalidade) '+
                        'SELECT 1, ''1'', '''' FROM RDB$DATABASE WHERE NOT EXISTS ( '+
                        'SELECT 1 FROM SISTEMA WHERE id = 1)');
 
@@ -91,16 +93,16 @@ begin
 
   if version <= 1 then
   begin
-    DataModule1.runQuery('CREATE TABLE CONTABANCARIA (id INTEGER PRIMARY KEY, nome VARCHAR(50), saldo bigint);');
+    runQuery('CREATE TABLE CONTABANCARIA (id INTEGER PRIMARY KEY, nome VARCHAR(50), saldo bigint);');
     autoInc('CONTABANCARIA');
 
-    DataModule1.runQuery('CREATE TABLE MEMBRO (id INTEGER PRIMARY KEY, '+
-                                              'nome VARCHAR(100), '+
-                                              'ativo INTEGER, '+
-                                              'whatsapp VARCHAR(20));');
+    runQuery('CREATE TABLE MEMBRO (id INTEGER PRIMARY KEY, '+
+                                    'nome VARCHAR(100), '+
+                                    'ativo INTEGER, '+
+                                    'whatsapp VARCHAR(20));');
     autoInc('MEMBRO');
 
-    DataModule1.runQuery('CREATE TABLE CONTACONTABIL (id INTEGER PRIMARY KEY, nome VARCHAR(100));');
+    runQuery('CREATE TABLE CONTACONTABIL (id INTEGER PRIMARY KEY, nome VARCHAR(100));');
     autoInc('CONTACONTABIL');
 
     updVersion(2);
@@ -108,7 +110,7 @@ begin
 
   if version <= 2 then
   begin
-    DataModule1.runQuery('CREATE TABLE MENSALIDADE (id INTEGER PRIMARY KEY, '+
+    runQuery('CREATE TABLE MENSALIDADE (id INTEGER PRIMARY KEY, '+
                          ' membro_id INTEGER, '+
                          ' anomes VARCHAR(6), '+
                          ' pago INTEGER)');
@@ -120,18 +122,19 @@ begin
 
   if version <= 3 then
   begin
-    DataModule1.runQuery('CREATE TABLE RECORRENTE (id INTEGER PRIMARY KEY, '+
-                         ' tipo INTEGER, '+
-                         ' recorrencia INTEGER, '+
-                         ' valor BIGINT, '+
+    runQuery('CREATE TABLE RECORRENTE (id INTEGER PRIMARY KEY, '+
+                         ' tipo INTEGER, '+ //A pagar, a Receber
+                         ' recorrencia INTEGER, '+ //Mensal, semestral, anual
+                         ' titulo VARCHAR(30), '+
+                         ' valor NUMERIC(9,2), '+
                          ' ultima_gerada DATE)');
     autoInc('RECORRENTE');
 
-    DataModule1.runQuery('CREATE TABLE APAGAR (id INTEGER PRIMARY KEY, '+
+    runQuery('CREATE TABLE APAGAR (id INTEGER PRIMARY KEY, '+
                          ' descricao VARCHAR(100), '+
                          ' vencimento DATE, '+
                          ' pago DATE, '+
-                         ' valor BIGINT, '+
+                         ' valor NUMERIC(9,2), '+
                          ' recorrente_id INTEGER)');
     autoInc('APAGAR');
 
@@ -140,38 +143,77 @@ begin
 
   if version <= 4 then
   begin
-    DataModule1.runQuery('CREATE TABLE ARECEBER (id INTEGER PRIMARY KEY, '+
+    runQuery('CREATE TABLE ARECEBER (id INTEGER PRIMARY KEY, '+
                          ' descricao VARCHAR(100), '+
                          ' vencimento DATE, '+
                          ' pago DATE, '+
-                         ' valor BIGINT)');
+                         ' valor  NUMERIC(9,2))');
     autoInc('ARECEBER');
 
-    DataModule1.runQuery('ALTER TABLE SISTEMA ADD ano_mes_ultima_recorrencia VARCHAR(6) DEFAULT '''';');
+    runQuery('ALTER TABLE SISTEMA ADD ano_mes_ultima_recorrencia VARCHAR(6) DEFAULT '''';');
+    runQuery('ALTER TABLE SISTEMA ADD valor_mensalidade NUMERIC(9,2) DEFAULT 50;');
+    runQuery('ALTER TABLE MENSALIDADE ADD areceber_id INTEGER;');
 
     updVersion(5);
   end;
+
 end;
 
 procedure tuntAutoUpdate.loadVersion();
 begin
-  version := DataModule1.runIntScalar('SELECT versao FROM SISTEMA');
+  version := runIntScalar('SELECT versao FROM SISTEMA');
 end;
 
 procedure tuntAutoUpdate.updVersion(version: int32);
 begin
-  DataModule1.runQuery('UPDATE SISTEMA SET versao = '''+ IntToStr(version)+'''');
+  runQuery('UPDATE SISTEMA SET versao = '''+ IntToStr(version)+'''');
 end;
 
 procedure tuntAutoUpdate.autoInc(name: string);
 begin
-  DataModule1.runQuery('CREATE SEQUENCE ' + LowerCase(name) + '_generator');
-  DataModule1.runQuery('CREATE TRIGGER trg_bef_ins_' + LowerCase(name) + ' for ' + LowerCase(name) + ' '+
+  runQuery('CREATE SEQUENCE ' + LowerCase(name) + '_generator');
+  runQuery('CREATE TRIGGER trg_bef_ins_' + LowerCase(name) + ' for ' + LowerCase(name) + ' '+
                        'BEFORE INSERT position 0 '+
                        'AS BEGIN '+
 //                       'new.id = gen_id("' + LowerCase(name) + '_generator",1); '+
                        'new.id = NEXT VALUE FOR ' + LowerCase(name) + '_generator; '+
                        'END;');
+end;
+
+procedure tuntAutoUpdate.runQuery(sql: String);
+var
+  cds: TSQLQuery;
+  tr: TSQLTransaction;
+begin
+  tr := TSQLTransaction.Create(nil);
+  tr.SQLConnection := Fire;
+
+  cds := TSQLQuery.Create(nil);
+  cds.Transaction := tr;
+  cds.SQLConnection := Fire;
+  cds.SQL.Add(sql);
+  cds.ExecSQL();
+  tr.Commit;
+  FreeAndNil(cds);
+end;
+
+function tuntAutoUpdate.runIntScalar(sql: String): Int32;
+var
+  cds: TSQLQuery;
+  tr: TSQLTransaction;
+begin
+  tr := TSQLTransaction.Create(nil);
+  tr.SQLConnection := Fire;
+  cds := TSQLQuery.Create(nil);
+  cds.Transaction := tr;
+  cds.SQLConnection := Fire;
+  cds.SQL.Add(sql);
+  cds.open();
+  if not cds.eof then
+     result := cds.Fields[0].AsInteger;
+
+  tr.Commit;
+  FreeAndNil(cds);
 end;
 
 end.
