@@ -21,7 +21,7 @@ type
     queApagarVENCIMENTO: TDateField;
     queContaBancariaID: TLongintField;
     queContaBancariaNOME: TStringField;
-    queContaBancariaSALDO: TLargeintField;
+    queContaBancariaSALDO: TBCDField;
     queContaContabilID: TLongintField;
     queContaContabilNOME: TStringField;
     queMembroATIVO: TLongintField;

@@ -93,7 +93,7 @@ begin
 
   if version <= 1 then
   begin
-    runQuery('CREATE TABLE CONTABANCARIA (id INTEGER PRIMARY KEY, nome VARCHAR(50), saldo bigint);');
+    runQuery('CREATE TABLE CONTABANCARIA (id INTEGER PRIMARY KEY, nome VARCHAR(50), saldo NUMERIC(9,2));');
     autoInc('CONTABANCARIA');
 
     runQuery('CREATE TABLE MEMBRO (id INTEGER PRIMARY KEY, '+

@@ -35,6 +35,7 @@ implementation
 
 procedure TfrmConfig.FormCreate(Sender: TObject);
 begin
+  DSConfig.DataSet.Close;
   DSConfig.DataSet.Open;
   DSConfig.DataSet.Edit;
 end;

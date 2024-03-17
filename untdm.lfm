@@ -35,8 +35,9 @@ object DataModule1: TDataModule1
       end    
       item
         Name = 'SALDO'
-        DataType = ftLargeint
-        Precision = -1
+        DataType = ftBCD
+        Precision = 9
+        Size = 2
       end>
     AfterDelete = queContaBancariaAfterDelete
     AfterPost = queContaBancariaAfterPost
@@ -68,7 +69,7 @@ object DataModule1: TDataModule1
       Required = False
       Size = 50
     end
-    object queContaBancariaSALDO: TLargeintField
+    object queContaBancariaSALDO: TBCDField
       FieldKind = fkData
       FieldName = 'SALDO'
       Index = 2
@@ -76,6 +77,12 @@ object DataModule1: TDataModule1
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      DisplayFormat = '#,0.00'
+      Precision = 9
+      Currency = True
+      MaxValue = 0
+      MinValue = 0
+      Size = 2
     end
   end
   object queMembro: TSQLQuery
@@ -108,6 +115,7 @@ object DataModule1: TDataModule1
     Transaction = trGeral
     SQL.Strings = (
       'SELECT * FROM MEMBRO'
+      'ORDER BY NOME'
     )
     Params = <>
     Macros = <>

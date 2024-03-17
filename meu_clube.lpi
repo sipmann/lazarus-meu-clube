@@ -16,6 +16,10 @@
       </XPManifest>
       <Icon Value="0"/>
     </General>
+    <VersionInfo>
+      <UseVersionInfo Value="True"/>
+      <Attributes pvaPreRelease="True" pvaPatched="True"/>
+    </VersionInfo>
     <BuildModes>
       <Item Name="Default" Default="True"/>
     </BuildModes>
@@ -154,6 +158,7 @@
         <Filename Value="untconfiguracoes.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmConfig"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="untConfiguracoes"/>
       </Unit>

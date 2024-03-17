@@ -87,6 +87,7 @@ object frmPrincipal: TfrmPrincipal
       end
       object mnUpdate: TMenuItem
         Caption = 'Rodar atualização'
+        Visible = False
         OnClick = mnUpdateClick
       end
       object MISair: TMenuItem
@@ -119,6 +120,7 @@ object frmPrincipal: TfrmPrincipal
     end
     object MIMensalidades: TMenuItem
       Caption = 'Mensalidades'
+      Visible = False
       OnClick = MIMensalidadesClick
     end
     object MISobre: TMenuItem

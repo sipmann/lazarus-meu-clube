@@ -48,6 +48,7 @@ type
   private
     procedure carregarDatasCalendario();
 
+    procedure carregarAPagar();
   public
 
   end;
@@ -91,6 +92,14 @@ begin
 
 end;
 
+procedure TfrmPrincipal.carregarAPagar();
+begin
+  DSContasAPagar.DataSet := DataModule1.returnQuery('SELECT * FROM APAGAR ' +
+                                                            ' WHERE PAGO = NULL OR PAGO IS NULL'+
+                                                            ' AND VENCIMENTO <= DATEADD(5 day to current_date) '+
+                                                            ' ORDER BY VENCIMENTO ASC;');
+end;
+
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
 end;
@@ -101,11 +110,7 @@ begin
 
   calendarioContas.DateTime:= now;
 
-  //TODO: Move this logic to a better place
-  DSContasAPagar.DataSet := DataModule1.returnQuery('SELECT * FROM APAGAR ' +
-                                                            ' WHERE PAGO = NULL OR PAGO IS NULL'+
-                                                            ' AND VENCIMENTO <= DATEADD(5 day to current_date) '+
-                                                            ' ORDER BY VENCIMENTO ASC;');
+  carregarAPagar();
 end;
 
 procedure TfrmPrincipal.MIContaBancariaClick(Sender: TObject);
@@ -121,6 +126,7 @@ end;
 procedure TfrmPrincipal.miContasAPagarClick(Sender: TObject);
 begin
   frmAPagar.ShowModal;
+  carregarAPagar();
 end;
 
 procedure TfrmPrincipal.MIMensalidadesClick(Sender: TObject);
